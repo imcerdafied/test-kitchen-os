@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { RecipeFeed } from '@/components/RecipeFeed';
 import { Recipe } from '@/types';
+import { IngredientHero } from '@/components/IngredientHero';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,5 +14,10 @@ export default async function Home() {
     .order('created_at', { ascending: false })
     .limit(100);
 
-  return <RecipeFeed initialRecipes={(recipes as Recipe[]) || []} />;
+  return (
+    <>
+      <IngredientHero />
+      <RecipeFeed initialRecipes={(recipes as Recipe[]) || []} />
+    </>
+  );
 }

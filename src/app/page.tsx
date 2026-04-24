@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { RecipeCard } from '@/components/RecipeCard';
-import { Logo } from '@/components/Logo';
+import { HeroCollage } from '@/components/HeroCollage';
 import { Recipe } from '@/types';
-import { ArrowRight, Camera, Mic, Type } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,67 +18,49 @@ export default async function Home() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-green-900 via-green-800 to-green-700 text-white">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-green-400 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-green-300 rounded-full blur-3xl" />
+      {/* Hero — masonry photo collage */}
+      <section className="relative overflow-hidden" style={{ minHeight: '75vh' }}>
+        {/* Masonry background */}
+        <div className="absolute inset-0">
+          <HeroCollage />
         </div>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 relative">
-          <div className="max-w-2xl">
-            <div className="mb-6 opacity-80">
-              <Logo size="lg" />
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 [&>span]:text-green-300">
-              Turn your ingredients into{' '}
-              <span>healthy, delicious</span> recipes
-            </h1>
-            <p className="text-lg sm:text-xl text-green-100/80 mb-8 max-w-lg">
-              Snap a photo of your fridge, speak your ingredients, or type them
-              in. Our AI creates beautiful, nutritious recipes you can share.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/create"
-                className="inline-flex items-center gap-2 bg-white text-green-900 px-6 py-3 rounded-full font-semibold hover:bg-cream-200 transition-colors"
-              >
-                Create a Recipe <ArrowRight size={18} />
-              </Link>
-            </div>
 
-            {/* Input method badges */}
-            <div className="flex flex-wrap gap-4 mt-10 text-sm text-green-200/70">
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-green-700/50 rounded-lg">
-                  <Camera size={16} />
-                </div>
-                Photo upload
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-green-700/50 rounded-lg">
-                  <Mic size={16} />
-                </div>
-                Voice input
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-green-700/50 rounded-lg">
-                  <Type size={16} />
-                </div>
-                Text input
-              </div>
-            </div>
+        {/* Center overlay with headline */}
+        <div className="hero-center-overlay">
+          <div className="hero-scrim">
+            <h1
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 text-white"
+              style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
+            >
+              Turn your ingredients into{' '}
+              <span className="text-terracotta-light">healthy, delicious</span>{' '}
+              recipes
+            </h1>
+            <p className="text-base sm:text-lg text-white/75 mb-6 max-w-md mx-auto">
+              Snap a photo, speak your ingredients, or type them in. Our AI
+              creates beautiful, nutritious recipes you can share.
+            </p>
+            <Link
+              href="/create"
+              className="inline-flex items-center gap-2 bg-terracotta text-white px-7 py-3 rounded-full font-semibold hover:bg-terracotta-light transition-colors text-base"
+            >
+              Create a Recipe <ArrowRight size={18} />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Community Feed */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-green-900">
+            <h2
+              className="text-2xl sm:text-3xl font-bold text-foreground"
+              style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
+            >
               Community Recipes
             </h2>
-            <p className="text-green-700/60 mt-1">
+            <p className="text-warm-gray mt-1">
               Fresh from the test kitchen
             </p>
           </div>
@@ -91,17 +73,20 @@ export default async function Home() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-white rounded-2xl border border-cream-300/50">
+          <div className="text-center py-20 rounded-2xl border border-cream-300" style={{ background: 'var(--cream-200)' }}>
             <div className="text-6xl mb-4">🧪</div>
-            <h3 className="text-xl font-semibold text-green-900 mb-2">
+            <h3
+              className="text-xl font-semibold text-foreground mb-2"
+              style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
+            >
               No recipes yet
             </h3>
-            <p className="text-green-700/60 mb-6">
+            <p className="text-warm-gray mb-6">
               Be the first to create a recipe!
             </p>
             <Link
               href="/create"
-              className="inline-flex items-center gap-2 bg-green-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-800 transition-colors"
+              className="inline-flex items-center gap-2 bg-terracotta text-white px-6 py-3 rounded-full font-semibold hover:bg-terracotta-light transition-colors"
             >
               Create Recipe <ArrowRight size={18} />
             </Link>

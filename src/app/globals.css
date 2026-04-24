@@ -1,47 +1,65 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FFFDF7;
-  --foreground: #1a2e1a;
-  --green-900: #1a3a2a;
-  --green-800: #1e4d35;
-  --green-700: #276749;
-  --green-600: #2f855a;
-  --green-500: #38a169;
-  --green-400: #68d391;
-  --green-100: #e6f4ea;
-  --green-50: #f0faf4;
-  --cream-100: #FFFDF7;
-  --cream-200: #FDF6E3;
-  --cream-300: #F5EDDA;
-  --cream-400: #E8DCC8;
-  --accent: #D97706;
+  --background: #FDFAF5;
+  --foreground: #2D2A26;
+  --terracotta: #C4622D;
+  --terracotta-light: #D4845A;
+  --herb-green: #4A7C59;
+  --herb-green-dark: #3A6347;
+  --herb-green-light: #6B9E7A;
+  --cream-100: #FDFAF5;
+  --cream-200: #F8F3EB;
+  --cream-300: #EDE6DA;
+  --cream-400: #DDD4C5;
+  --warm-gray: #6B6560;
+  --warm-gray-light: #9B9590;
+  /* Legacy green tokens for RecipeCard compatibility */
+  --green-900: #2D2A26;
+  --green-800: #3A6347;
+  --green-700: #4A7C59;
+  --green-600: #5A8E6A;
+  --green-500: #6B9E7A;
+  --green-400: #8BB89A;
+  --green-300: #A8D0B5;
+  --green-200: #C5E2CF;
+  --green-100: #E6F0EA;
+  --green-50: #F0F7F3;
+  --accent: #C4622D;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-light: var(--terracotta-light);
+  --color-herb: var(--herb-green);
+  --color-herb-dark: var(--herb-green-dark);
+  --color-herb-light: var(--herb-green-light);
   --color-green-900: var(--green-900);
   --color-green-800: var(--green-800);
   --color-green-700: var(--green-700);
   --color-green-600: var(--green-600);
   --color-green-500: var(--green-500);
   --color-green-400: var(--green-400);
+  --color-green-300: var(--green-300);
+  --color-green-200: var(--green-200);
   --color-green-100: var(--green-100);
   --color-green-50: var(--green-50);
   --color-cream-100: var(--cream-100);
   --color-cream-200: var(--cream-200);
   --color-cream-300: var(--cream-300);
   --color-cream-400: var(--cream-400);
+  --color-warm-gray: var(--warm-gray);
   --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-playfair);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 /* Custom scrollbar */
@@ -52,11 +70,163 @@ body {
   background: var(--cream-200);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--green-400);
+  background: var(--cream-400);
   border-radius: 3px;
 }
 
-/* Animation utilities */
+/* ========================================
+   HERO MASONRY COLLAGE
+   ======================================== */
+
+.hero-masonry {
+  columns: 2;
+  column-gap: 8px;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 640px) {
+  .hero-masonry {
+    columns: 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-masonry {
+    columns: 4;
+    column-gap: 10px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-masonry {
+    columns: 5;
+  }
+}
+
+.hero-masonry-item {
+  break-inside: avoid;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .hero-masonry-item {
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+}
+
+.hero-masonry-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.hero-masonry-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Recipe card overlay on hover */
+.hero-masonry-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 14px 14px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.55) 60%,
+    transparent 100%
+  );
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+
+.hero-masonry-overlay--active {
+  transform: translateY(0);
+}
+
+.hero-masonry-overlay h3 {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.hero-masonry-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.hero-masonry-ingredients span {
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 2px 8px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.hero-masonry-cta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--terracotta-light);
+  margin: 0;
+}
+
+/* ========================================
+   HERO CENTER OVERLAY (headline + CTA)
+   ======================================== */
+
+.hero-center-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hero-center-overlay > div {
+  pointer-events: auto;
+}
+
+.hero-scrim {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.35) 50%,
+    transparent 80%
+  );
+  padding: 48px 32px;
+  border-radius: 24px;
+  max-width: 600px;
+}
+
+@media (min-width: 640px) {
+  .hero-scrim {
+    padding: 56px 48px;
+  }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }

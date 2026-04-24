@@ -2,71 +2,71 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Clock, ChefHat } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { Recipe } from '@/types';
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
-
   return (
-    <Link href={`/recipe/${recipe.id}`} className="group block">
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-cream-300/50 group-hover:border-green-300/50 group-hover:-translate-y-1">
-        {/* Image */}
-        <div className="aspect-[4/3] relative bg-cream-200 overflow-hidden">
+    <Link href={`/recipe/${recipe.id}`} className="masonry-card group block">
+      <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
+        {/* Image — natural aspect ratio */}
+        <div className="relative overflow-hidden">
           {recipe.image_url ? (
             <Image
               src={recipe.image_url}
               alt={recipe.name}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              width={600}
+              height={400}
+              className="w-full h-auto object-cover"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <ChefHat size={48} className="text-cream-400" />
-            </div>
+            <div
+              className="w-full aspect-[4/3]"
+              style={{
+                background:
+                  'linear-gradient(135deg, var(--terracotta) 0%, var(--cream-300) 100%)',
+              }}
+            />
           )}
         </div>
 
         {/* Content */}
-        <div className="p-4">
-          <h3 className="font-semibold text-green-900 text-lg leading-tight mb-1 group-hover:text-green-700 transition-colors">
+        <div className="p-3.5">
+          <h3
+            className="font-bold text-foreground text-[0.95rem] leading-snug mb-1.5"
+            style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
+          >
             {recipe.name}
           </h3>
-          <p className="text-sm text-green-700/70 line-clamp-2 mb-3">
-            {recipe.description}
-          </p>
 
-          {/* Ingredients tags */}
-          <div className="flex flex-wrap gap-1 mb-3">
-            {recipe.ingredients_list.slice(0, 4).map((ing, i) => (
-              <span
-                key={i}
-                className="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full"
-              >
-                {ing.replace(/^[\d/.]+\s*(cup|tbsp|tsp|oz|lb|g|kg|ml|l|cloves?|pieces?|medium|large|small|cans?|bunch|head)s?\s*/i, '')}
+          <div className="flex items-center gap-3 text-xs text-warm-gray mb-2">
+            {recipe.prep_time && (
+              <span className="flex items-center gap-1">
+                <Clock size={11} />
+                {recipe.prep_time}
               </span>
-            ))}
-            {recipe.ingredients_list.length > 4 && (
-              <span className="text-xs text-green-600/60 px-1 py-0.5">
-                +{recipe.ingredients_list.length - 4} more
+            )}
+            {recipe.cook_time && (
+              <span className="flex items-center gap-1">
+                <Clock size={11} />
+                {recipe.cook_time}
               </span>
             )}
           </div>
 
-          {/* Footer */}
-          <div className="flex items-center justify-between text-xs text-green-700/60">
-            <span className="flex items-center gap-1">
-              <Clock size={12} />
-              {recipe.prep_time}
-            </span>
-            <span className="flex items-center gap-1">
-              <ChefHat size={12} />
-              {recipe.cook_time}
-            </span>
-            <span className="flex items-center gap-1">
-              <Heart size={12} />
-              {recipe.likes_count}
-            </span>
+          <div className="flex flex-wrap gap-1">
+            {recipe.ingredients_list.slice(0, 3).map((ing, i) => (
+              <span
+                key={i}
+                className="text-[0.65rem] bg-cream-200 text-warm-gray px-2 py-0.5 rounded-full"
+              >
+                {ing.replace(
+                  /^[\d/.]+\s*(cup|tbsp|tsp|oz|lb|g|kg|ml|l|cloves?|pieces?|medium|large|small|cans?|bunch|head)s?\s*/i,
+                  ''
+                )}
+              </span>
+            ))}
           </div>
         </div>
       </div>

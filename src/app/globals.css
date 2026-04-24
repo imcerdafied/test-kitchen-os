@@ -75,148 +75,43 @@ body {
 }
 
 /* ========================================
-   HERO MASONRY COLLAGE
+   MASONRY RECIPE GRID
    ======================================== */
 
-.hero-masonry {
+.masonry-grid {
   columns: 2;
-  column-gap: 8px;
-  width: 100%;
-  height: 100%;
+  column-gap: 12px;
 }
 
-@media (min-width: 640px) {
-  .hero-masonry {
+@media (min-width: 768px) {
+  .masonry-grid {
     columns: 3;
+    column-gap: 14px;
   }
 }
 
 @media (min-width: 1024px) {
-  .hero-masonry {
+  .masonry-grid {
     columns: 4;
-    column-gap: 10px;
+    column-gap: 16px;
   }
 }
 
-@media (min-width: 1280px) {
-  .hero-masonry {
-    columns: 5;
-  }
-}
-
-.hero-masonry-item {
+.masonry-card {
   break-inside: avoid;
-  margin-bottom: 8px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  cursor: pointer;
+  margin-bottom: 12px;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .masonry-card {
+    margin-bottom: 14px;
+  }
 }
 
 @media (min-width: 1024px) {
-  .hero-masonry-item {
-    margin-bottom: 10px;
-    border-radius: 10px;
-  }
-}
-
-.hero-masonry-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.hero-masonry-item:hover img {
-  transform: scale(1.05);
-}
-
-/* Recipe card overlay on hover */
-.hero-masonry-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 16px 14px 14px;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.82) 0%,
-    rgba(0, 0, 0, 0.55) 60%,
-    transparent 100%
-  );
-  transform: translateY(100%);
-  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  pointer-events: none;
-}
-
-.hero-masonry-overlay--active {
-  transform: translateY(0);
-}
-
-.hero-masonry-overlay h3 {
-  font-family: var(--font-playfair), Georgia, serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 6px;
-  line-height: 1.2;
-}
-
-.hero-masonry-ingredients {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-
-.hero-masonry-ingredients span {
-  font-size: 0.7rem;
-  background: rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.9);
-  padding: 2px 8px;
-  border-radius: 999px;
-  backdrop-filter: blur(4px);
-}
-
-.hero-masonry-cta {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--terracotta-light);
-  margin: 0;
-}
-
-/* ========================================
-   HERO CENTER OVERLAY (headline + CTA)
-   ======================================== */
-
-.hero-center-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.hero-center-overlay > div {
-  pointer-events: auto;
-}
-
-.hero-scrim {
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  padding: 48px 32px;
-  border-radius: 24px;
-  max-width: 600px;
-}
-
-@media (min-width: 640px) {
-  .hero-scrim {
-    padding: 56px 48px;
+  .masonry-card {
+    margin-bottom: 16px;
   }
 }
 

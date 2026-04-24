@@ -55,18 +55,22 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
             )}
           </div>
 
-          <div className="flex flex-wrap gap-1">
-            {recipe.ingredients_list.slice(0, 3).map((ing, i) => (
-              <span
-                key={i}
-                className="text-[0.65rem] bg-cream-200 text-warm-gray px-2 py-0.5 rounded-full"
-              >
-                {ing.replace(
-                  /^[\d/.]+\s*(cup|tbsp|tsp|oz|lb|g|kg|ml|l|cloves?|pieces?|medium|large|small|cans?|bunch|head)s?\s*/i,
-                  ''
-                )}
-              </span>
-            ))}
+          <div className="flex gap-1 overflow-hidden">
+            {recipe.ingredients_list.slice(0, 3).map((ing, i) => {
+              const name = ing
+                .replace(/^[\d/.¼½¾⅓⅔]+\s*/g, '')
+                .replace(/^(cups?|tbsp|tsp|tablespoons?|teaspoons?|oz|lb|lbs?|g|kg|ml|l|cloves?|pieces?|medium|large|small|cans?|bunch|head|pinch|dash|handful|slices?|stalks?|sprigs?)\s*(of\s+)?/i, '')
+                .trim();
+              const display = name.length > 20 ? name.slice(0, 20) + '...' : name;
+              return (
+                <span
+                  key={i}
+                  className="text-[0.65rem] bg-cream-200 text-warm-gray px-2 py-0.5 rounded-full whitespace-nowrap"
+                >
+                  {display}
+                </span>
+              );
+            })}
           </div>
         </div>
       </div>

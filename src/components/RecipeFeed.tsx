@@ -77,11 +77,14 @@ export function RecipeFeed({ initialRecipes }: { initialRecipes: Recipe[] }) {
       {/* Search bar section */}
       <section className="pt-10 pb-6 px-4 sm:px-6 text-center">
         <h1
-          className="text-2xl sm:text-3xl font-bold text-foreground mb-5"
+          className="text-2xl sm:text-3xl font-bold text-foreground mb-2"
           style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
         >
           What is in your kitchen?
         </h1>
+        <p className="text-sm text-warm-gray mb-5">
+          Healthy recipes from what you already have. Less waste, more flavor.
+        </p>
 
         <div className="max-w-2xl mx-auto mb-4 relative">
           <Search

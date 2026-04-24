@@ -30,15 +30,15 @@ export default async function Home() {
           <div className="hero-scrim">
             <h1
               className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 text-white"
-              style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
+              style={{ fontFamily: 'var(--font-playfair), Georgia, serif', textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
             >
               Turn your ingredients into{' '}
-              <span className="text-terracotta-light">healthy, delicious</span>{' '}
+              <span style={{ color: '#ffffff' }}>healthy, delicious</span>{' '}
               recipes
             </h1>
-            <p className="text-base sm:text-lg text-white/75 mb-6 max-w-md mx-auto">
-              Snap a photo, speak your ingredients, or type them in. Our AI
-              creates beautiful, nutritious recipes you can share.
+            <p className="text-base sm:text-lg mb-6 max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.9)' }}>
+              Snap a photo of your fridge, speak your ingredients, or just type
+              what you have. Get a beautiful, nutritious recipe in seconds.
             </p>
             <Link
               href="/create"
@@ -58,10 +58,10 @@ export default async function Home() {
               className="text-2xl sm:text-3xl font-bold text-foreground"
               style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
             >
-              Community Recipes
+              Get Inspired
             </h2>
             <p className="text-warm-gray mt-1">
-              Fresh from the test kitchen
+              500+ healthy recipes to spark your next meal
             </p>
           </div>
         </div>

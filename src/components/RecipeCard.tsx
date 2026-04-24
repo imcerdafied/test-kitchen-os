@@ -6,7 +6,6 @@ import { Heart, Clock, ChefHat } from 'lucide-react';
 import { Recipe } from '@/types';
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
-  const timeAgo = getTimeAgo(new Date(recipe.created_at));
 
   return (
     <Link href={`/recipe/${recipe.id}`} className="group block">
@@ -56,49 +55,21 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
 
           {/* Footer */}
           <div className="flex items-center justify-between text-xs text-green-700/60">
-            <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1">
-                <Clock size={12} />
-                {recipe.prep_time}
-              </span>
-              <span className="flex items-center gap-1">
-                <Heart size={12} />
-                {recipe.likes_count}
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              {recipe.profiles?.avatar_url ? (
-                <Image
-                  src={recipe.profiles.avatar_url}
-                  alt=""
-                  width={18}
-                  height={18}
-                  className="rounded-full"
-                />
-              ) : (
-                <div className="w-[18px] h-[18px] rounded-full bg-green-200 flex items-center justify-center text-[10px] font-medium text-green-700">
-                  {recipe.profiles?.username?.[0]?.toUpperCase() || '?'}
-                </div>
-              )}
-              <span>{recipe.profiles?.username || 'Anonymous'}</span>
-              <span>&middot;</span>
-              <span>{timeAgo}</span>
-            </div>
+            <span className="flex items-center gap-1">
+              <Clock size={12} />
+              {recipe.prep_time}
+            </span>
+            <span className="flex items-center gap-1">
+              <ChefHat size={12} />
+              {recipe.cook_time}
+            </span>
+            <span className="flex items-center gap-1">
+              <Heart size={12} />
+              {recipe.likes_count}
+            </span>
           </div>
         </div>
       </div>
     </Link>
   );
-}
-
-function getTimeAgo(date: Date): string {
-  const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-  if (seconds < 60) return 'just now';
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  if (days < 30) return `${days}d ago`;
-  return date.toLocaleDateString();
 }

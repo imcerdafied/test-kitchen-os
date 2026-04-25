@@ -12,7 +12,13 @@ import {
   X,
   Loader2,
   ArrowRight,
+  AlertTriangle,
 } from 'lucide-react';
+
+interface ExpirationWarning {
+  item: string;
+  reason: string;
+}
 
 type InputMethod = 'photo' | 'voice' | 'text';
 
@@ -24,6 +30,7 @@ export function IngredientHero() {
   const [isListening, setIsListening] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('');
+  const [expirationWarnings, setExpirationWarnings] = useState<ExpirationWarning[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const router = useRouter();
@@ -42,14 +49,17 @@ export function IngredientHero() {
         setLoadingMessage('Identifying ingredients...');
 
         try {
-          const res = await fetch('/api/identify-ingredients', {
+          const res = await fetch('/api/analyze-fridge', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ image: base64 }),
+            body: JSON.stringify({ imageBase64: base64 }),
           });
           const data = await res.json();
           if (data.ingredients) {
             setIngredients(data.ingredients);
+          }
+          if (data.checkThese?.length > 0) {
+            setExpirationWarnings(data.checkThese);
           }
         } catch {
           alert('Failed to identify ingredients. Please try again.');
@@ -235,6 +245,7 @@ export function IngredientHero() {
                   onClick={() => {
                     setImagePreview(null);
                     setIngredients([]);
+                    setExpirationWarnings([]);
                   }}
                   className="absolute top-3 right-3 bg-black/50 text-white p-1.5 rounded-full hover:bg-black/70"
                 >
@@ -308,6 +319,29 @@ export function IngredientHero() {
             >
               Add Ingredients
             </button>
+          </div>
+        )}
+
+        {/* Expiration warnings */}
+        {expirationWarnings.length > 0 && (
+          <div className="mt-6 max-w-lg mx-auto">
+            <div
+              className="rounded-2xl p-4 text-left"
+              style={{ background: '#fef3c7', border: '1px solid #f59e0b40' }}
+            >
+              <h3 className="flex items-center gap-2 font-semibold text-sm mb-3" style={{ color: '#92400e' }}>
+                <AlertTriangle size={16} />
+                Use these soon
+              </h3>
+              <ul className="space-y-2">
+                {expirationWarnings.map((w, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm" style={{ color: '#78350f' }}>
+                    <span className="font-medium">{w.item}</span>
+                    <span style={{ color: '#a16207' }}>— {w.reason}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         )}
 

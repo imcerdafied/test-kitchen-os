@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "seed:user": "npx tsx scripts/create-seed-user.ts",
-    "seed:recipes": "npx tsx scripts/seed-recipes.ts"
+    "seed:recipes": "npx tsx scripts/seed-recipes.ts",
+    "fix:images": "npx tsx scripts/fix-images-pexels.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

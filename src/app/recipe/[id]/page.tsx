@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { LikeButton } from '@/components/LikeButton';
+import { RecipeHeroImage } from '@/components/RecipeHeroImage';
 import { Recipe } from '@/types';
 import { Clock, ChefHat, Check, ArrowLeft, User } from 'lucide-react';
 
@@ -39,22 +40,7 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
     <div className="min-h-screen" style={{ background: '#fdf8f3' }}>
       {/* Hero image */}
       <div className="relative w-full h-[400px] overflow-hidden">
-        {recipe.image_url ? (
-          <Image
-            src={recipe.image_url}
-            alt={recipe.name}
-            fill
-            className="object-cover"
-            priority
-          />
-        ) : (
-          <div
-            className="w-full h-full"
-            style={{
-              background: 'linear-gradient(135deg, #c4704b 0%, #e8a87c 50%, #d4956b 100%)',
-            }}
-          />
-        )}
+        <RecipeHeroImage recipe={recipe} />
         {/* Scrim overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 

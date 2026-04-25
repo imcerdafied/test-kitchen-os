@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <circle cx="256" cy="256" r="256" fill="#C4622D"/>
+  <!-- Chef hat band -->
+  <rect x="128" y="314.88000000000005" width="256" height="46.080000000000005" rx="6.912000000000001" fill="white"/>
+  <!-- Chef hat puff (three overlapping circles) -->
+  <ellipse cx="256" cy="231.936" rx="97.28" ry="101.376" fill="white"/>
+  <ellipse cx="192" cy="241.152" rx="71.68" ry="88.47359999999999" fill="white"/>
+  <ellipse cx="320" cy="241.152" rx="71.68" ry="88.47359999999999" fill="white"/>
+</svg>

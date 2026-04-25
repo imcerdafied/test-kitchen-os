@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import { Navbar } from '@/components/Navbar';
+import { ServiceWorkerRegistration } from '@/components/ServiceWorker';
+import { InstallBanner } from '@/components/InstallBanner';
 import './globals.css';
 
 const inter = Inter({
@@ -24,10 +26,13 @@ export const metadata: Metadata = {
   title: 'Test Kitchen OS — AI-Powered Community Recipes',
   description:
     'Upload your ingredients, get healthy AI-generated recipes with beautiful food images, and share with the community.',
-  other: {
-    'apple-mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-status-bar-style': 'default',
-    'apple-mobile-web-app-title': 'Test Kitchen OS',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Test Kitchen',
+  },
+  icons: {
+    apple: '/icons/icon-192.png',
   },
 };
 
@@ -44,6 +49,8 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-cream-100">
         <Navbar />
         <main className="flex-1">{children}</main>
+        <ServiceWorkerRegistration />
+        <InstallBanner />
         <footer className="border-t border-cream-300 py-8 mt-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-green-700/50">
             <p>Test Kitchen OS — Healthy recipes, powered by AI</p>

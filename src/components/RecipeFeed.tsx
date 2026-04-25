@@ -96,17 +96,17 @@ export function RecipeFeed({ initialRecipes }: { initialRecipes: Recipe[] }) {
             placeholder="Search recipes, ingredients, or cuisine..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-12 pr-4 py-3.5 rounded-full border border-cream-300 bg-white text-foreground placeholder:text-warm-gray focus:outline-none focus:ring-2 focus:ring-herb/30 focus:border-herb text-base shadow-sm"
+            className="w-full pl-12 pr-4 py-3.5 rounded-full border border-cream-300 bg-white text-foreground placeholder:text-warm-gray focus:outline-none focus:ring-2 focus:ring-herb/30 focus:border-herb text-[16px] shadow-sm"
           />
         </div>
 
         {/* Cuisine pills */}
-        <div className="max-w-3xl mx-auto flex flex-wrap justify-center gap-2 mb-2">
+        <div className="max-w-3xl mx-auto flex overflow-x-auto sm:flex-wrap sm:justify-center gap-2 mb-2 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0" style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
           {CUISINES.map((c) => (
             <button
               key={c}
               onClick={() => setCuisine(c)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
                 cuisine === c
                   ? 'bg-foreground text-white'
                   : 'bg-cream-200 text-warm-gray hover:bg-cream-300'
@@ -117,7 +117,7 @@ export function RecipeFeed({ initialRecipes }: { initialRecipes: Recipe[] }) {
           ))}
         </div>
 
-        <p className="text-sm text-warm-gray mt-3">
+        <p className="text-xs sm:text-sm text-warm-gray mt-3">
           {filtered.length} recipe{filtered.length !== 1 ? 's' : ''}
         </p>
       </section>

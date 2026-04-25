@@ -187,7 +187,7 @@ function AuthPageInner() {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-cream-300 bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta"
+                  className="w-full px-4 py-3 rounded-xl border border-cream-300 bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta text-[16px]"
                   placeholder="chefname"
                   required
                 />
@@ -240,7 +240,7 @@ function AuthPageInner() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-terracotta text-white px-4 py-3 rounded-xl font-semibold hover:bg-terracotta-light transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-terracotta text-white px-4 py-3 rounded-xl font-semibold hover:bg-terracotta-light transition-colors disabled:opacity-50 flex items-center justify-center gap-2 min-h-[48px] text-[16px]"
             >
               {loading ? (
                 <>

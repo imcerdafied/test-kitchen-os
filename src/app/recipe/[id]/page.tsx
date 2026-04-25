@@ -39,7 +39,7 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
   return (
     <div className="min-h-screen" style={{ background: '#fdf8f3' }}>
       {/* Hero image */}
-      <div className="relative w-full h-[400px] overflow-hidden">
+      <div className="relative w-full h-[280px] sm:h-[400px] overflow-hidden">
         <RecipeHeroImage recipe={recipe} />
         {/* Scrim overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -47,7 +47,7 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
         {/* Back button */}
         <Link
           href="/"
-          className="absolute top-6 left-6 inline-flex items-center gap-1.5 text-white/90 hover:text-white text-sm font-medium bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full transition-colors"
+          className="absolute top-4 left-4 sm:top-6 sm:left-6 inline-flex items-center gap-1.5 text-white/90 hover:text-white text-sm font-medium bg-black/30 backdrop-blur-sm px-4 py-2.5 rounded-full transition-colors min-h-[44px]"
         >
           <ArrowLeft size={16} /> Back to feed
         </Link>

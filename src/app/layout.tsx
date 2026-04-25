@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import { Navbar } from '@/components/Navbar';
 import './globals.css';
@@ -13,10 +13,22 @@ const playfair = Playfair_Display({
   subsets: ['latin'],
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#C4622D',
+};
+
 export const metadata: Metadata = {
   title: 'Test Kitchen OS — AI-Powered Community Recipes',
   description:
     'Upload your ingredients, get healthy AI-generated recipes with beautiful food images, and share with the community.',
+  other: {
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'default',
+    'apple-mobile-web-app-title': 'Test Kitchen OS',
+  },
 };
 
 export default function RootLayout({

@@ -236,7 +236,7 @@ export function IngredientHero() {
     <section className="px-4 sm:px-6 pt-12 pb-10">
       <div className="max-w-2xl mx-auto text-center">
         <h1
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4"
+          className="text-3xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4"
           style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
         >
           Whats in your kitchen?
@@ -262,7 +262,7 @@ export function IngredientHero() {
                   : 'text-warm-gray hover:text-foreground'
               }`}
             >
-              <Icon size={16} />
+              <Icon size={20} />
               <span className="hidden sm:inline">{label}</span>
             </button>
           ))}
@@ -301,7 +301,7 @@ export function IngredientHero() {
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={loading}
-                className="w-full border-2 border-dashed border-cream-400 rounded-2xl p-10 text-center hover:border-terracotta/40 hover:bg-cream-200/50 transition-all"
+                className="w-full border-2 border-dashed border-cream-400 rounded-2xl p-10 text-center hover:border-terracotta/40 hover:bg-cream-200/50 transition-all min-h-[140px]"
               >
                 <Upload size={36} className="mx-auto text-terracotta mb-3" />
                 <p className="text-foreground font-medium">
@@ -349,7 +349,7 @@ export function IngredientHero() {
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
               placeholder="Type ingredients separated by commas or new lines...&#10;&#10;e.g., chicken breast, broccoli, garlic, olive oil, lemon"
-              className="w-full h-32 px-4 py-3 rounded-2xl border border-cream-300 bg-white text-foreground placeholder:text-warm-gray/60 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta resize-none"
+              className="w-full h-32 min-h-[100px] px-4 py-3 rounded-2xl border border-cream-300 bg-white text-foreground placeholder:text-warm-gray/60 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta resize-none text-[16px]"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey && textInput.trim()) {
                   e.preventDefault();
@@ -374,7 +374,7 @@ export function IngredientHero() {
               <p className="text-foreground font-medium mb-2">
                 Looking good! Create a free account to generate your recipe and share it with the community.
               </p>
-              <div className="flex gap-3 justify-center mt-4">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
                 <a
                   href={getAuthUrl()}
                   className="inline-flex items-center gap-2 bg-terracotta text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-terracotta-light transition-colors"
@@ -440,7 +440,7 @@ export function IngredientHero() {
               <button
                 onClick={generateRecipe}
                 disabled={loading}
-                className="inline-flex items-center gap-2 bg-terracotta text-white px-8 py-3.5 rounded-full font-semibold hover:bg-terracotta-light transition-colors disabled:opacity-50 text-lg"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-terracotta text-white px-8 py-3.5 rounded-full font-semibold hover:bg-terracotta-light transition-colors disabled:opacity-50 text-lg"
               >
                 {loading ? (
                   <>

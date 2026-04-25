@@ -77,7 +77,7 @@ export function Navbar() {
 
           {/* Mobile menu button */}
           <button
-            className="sm:hidden p-2 text-green-700"
+            className="sm:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-green-700"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}

@@ -40,9 +40,9 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         </div>
 
         {/* Content */}
-        <div className="p-3.5">
+        <div className="p-2.5 sm:p-3.5">
           <h3
-            className="font-bold text-foreground text-[0.95rem] leading-snug mb-1.5"
+            className="font-bold text-foreground text-[0.85rem] sm:text-[0.95rem] leading-snug mb-1.5 line-clamp-2"
             style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
           >
             {recipe.name}
@@ -73,7 +73,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
               return (
                 <span
                   key={i}
-                  className="text-[0.65rem] bg-cream-200 text-warm-gray px-2 py-0.5 rounded-full whitespace-nowrap"
+                  className={`text-[0.65rem] bg-cream-200 text-warm-gray px-2 py-0.5 rounded-full whitespace-nowrap ${i === 2 ? 'hidden sm:inline' : ''}`}
                 >
                   {display}
                 </span>

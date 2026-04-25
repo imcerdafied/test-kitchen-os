@@ -79,8 +79,14 @@ body {
    ======================================== */
 
 .masonry-grid {
-  columns: 2;
+  columns: 1;
   column-gap: 12px;
+}
+
+@media (min-width: 480px) {
+  .masonry-grid {
+    columns: 2;
+  }
 }
 
 @media (min-width: 768px) {
@@ -141,3 +147,15 @@ body {
 .stagger-2 { animation-delay: 0.2s; }
 .stagger-3 { animation-delay: 0.3s; }
 .stagger-4 { animation-delay: 0.4s; }
+
+/* ========================================
+   MOBILE TOUCH & SCROLLING
+   ======================================== */
+
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+button, a, [role="button"] {
+  min-height: 44px;
+}

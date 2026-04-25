@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import {
@@ -13,6 +13,8 @@ import {
   Loader2,
   ArrowRight,
   AlertTriangle,
+  UserPlus,
+  LogIn,
 } from 'lucide-react';
 
 interface ExpirationWarning {
@@ -31,10 +33,53 @@ export function IngredientHero() {
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('');
   const [expirationWarnings, setExpirationWarnings] = useState<ExpirationWarning[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const router = useRouter();
   const supabase = createClient();
+
+  // Check auth state on mount and restore pending ingredients
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setIsLoggedIn(!!user);
+    });
+
+    const pending = sessionStorage.getItem('pendingIngredients');
+    if (pending) {
+      sessionStorage.removeItem('pendingIngredients');
+      const items = pending
+        .split(/[,\n]/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+      if (items.length > 0) {
+        setIngredients(items);
+      }
+    }
+  }, [supabase.auth]);
+
+  // Show auth prompt for anon users when they have input
+  useEffect(() => {
+    if (isLoggedIn === false && (textInput.length >= 3 || ingredients.length > 0)) {
+      setShowAuthPrompt(true);
+    } else {
+      setShowAuthPrompt(false);
+    }
+  }, [isLoggedIn, textInput, ingredients]);
+
+  const getAuthUrl = useCallback(() => {
+    const allIngredients = [...ingredients];
+    if (textInput.trim()) {
+      const items = textInput.split(/[,\n]/).map((s) => s.trim()).filter(Boolean);
+      allIngredients.push(...items);
+    }
+    const params = new URLSearchParams({ returnUrl: '/' });
+    if (allIngredients.length > 0) {
+      params.set('ingredients', allIngredients.join(','));
+    }
+    return `/auth?${params.toString()}`;
+  }, [ingredients, textInput]);
 
   const handlePhotoUpload = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,7 +173,7 @@ export function IngredientHero() {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      router.push('/auth');
+      router.push(getAuthUrl());
       return;
     }
 
@@ -322,6 +367,33 @@ export function IngredientHero() {
           </div>
         )}
 
+        {/* Auth prompt for anonymous users */}
+        {showAuthPrompt && (
+          <div className="mt-6 max-w-md mx-auto animate-fade-in">
+            <div className="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 text-center">
+              <p className="text-foreground font-medium mb-2">
+                Looking good! Create a free account to generate your recipe and share it with the community.
+              </p>
+              <div className="flex gap-3 justify-center mt-4">
+                <a
+                  href={getAuthUrl()}
+                  className="inline-flex items-center gap-2 bg-terracotta text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-terracotta-light transition-colors"
+                >
+                  <UserPlus size={16} />
+                  Create Account
+                </a>
+                <a
+                  href={getAuthUrl()}
+                  className="inline-flex items-center gap-2 border border-cream-400 text-foreground px-5 py-2.5 rounded-xl font-semibold hover:bg-cream-200 transition-colors"
+                >
+                  <LogIn size={16} />
+                  Sign In
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Expiration warnings */}
         {expirationWarnings.length > 0 && (
           <div className="mt-6 max-w-lg mx-auto">
@@ -345,7 +417,7 @@ export function IngredientHero() {
           </div>
         )}
 
-        {/* Ingredient chips */}
+        {/* Ingredient chips + generate button */}
         {ingredients.length > 0 && (
           <div className="mt-6 max-w-lg mx-auto">
             <div className="flex flex-wrap justify-center gap-2 mb-5">
@@ -364,26 +436,30 @@ export function IngredientHero() {
                 </span>
               ))}
             </div>
-            <button
-              onClick={generateRecipe}
-              disabled={loading}
-              className="inline-flex items-center gap-2 bg-terracotta text-white px-8 py-3.5 rounded-full font-semibold hover:bg-terracotta-light transition-colors disabled:opacity-50 text-lg"
-            >
-              {loading ? (
-                <>
-                  <Loader2 size={20} className="animate-spin" />
-                  {loadingMessage}
-                </>
-              ) : (
-                <>
-                  Generate Recipe
-                  <ArrowRight size={20} />
-                </>
-              )}
-            </button>
-            <p className="text-sm text-warm-gray mt-3">
-              Your recipe will be shared with the Test Kitchen community
-            </p>
+            {isLoggedIn && (
+              <button
+                onClick={generateRecipe}
+                disabled={loading}
+                className="inline-flex items-center gap-2 bg-terracotta text-white px-8 py-3.5 rounded-full font-semibold hover:bg-terracotta-light transition-colors disabled:opacity-50 text-lg"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 size={20} className="animate-spin" />
+                    {loadingMessage}
+                  </>
+                ) : (
+                  <>
+                    Generate Recipe
+                    <ArrowRight size={20} />
+                  </>
+                )}
+              </button>
+            )}
+            {isLoggedIn && (
+              <p className="text-sm text-warm-gray mt-3">
+                Your recipe will be shared with the Test Kitchen community
+              </p>
+            )}
           </div>
         )}
       </div>

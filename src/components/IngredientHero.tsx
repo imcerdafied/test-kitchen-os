@@ -242,7 +242,7 @@ export function IngredientHero() {
           Whats in your kitchen?
         </h1>
         <p className="text-warm-gray text-lg sm:text-xl mb-8 max-w-lg mx-auto">
-          Add your ingredients and we will create a healthy recipe — and share it
+          Add your ingredients and we will create a healthy recipe and share it
           with the community.
         </p>
 
@@ -409,7 +409,7 @@ export function IngredientHero() {
                 {expirationWarnings.map((w, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm" style={{ color: '#78350f' }}>
                     <span className="font-medium">{w.item}</span>
-                    <span style={{ color: '#a16207' }}>— {w.reason}</span>
+                    <span style={{ color: '#a16207' }}>{w.reason}</span>
                   </li>
                 ))}
               </ul>

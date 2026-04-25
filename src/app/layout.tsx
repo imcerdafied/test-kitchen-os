@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Test Kitchen OS — AI-Powered Community Recipes',
+  title: 'Test Kitchen OS: AI-Powered Community Recipes',
   description:
     'Upload your ingredients, get healthy AI-generated recipes with beautiful food images, and share with the community.',
   appleWebApp: {
@@ -53,7 +53,7 @@ export default function RootLayout({
         <InstallBanner />
         <footer className="border-t border-cream-300 py-8 mt-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-green-700/50">
-            <p>Test Kitchen OS — Healthy recipes, powered by AI</p>
+            <p>Test Kitchen OS: Healthy recipes, powered by AI</p>
           </div>
         </footer>
       </body>

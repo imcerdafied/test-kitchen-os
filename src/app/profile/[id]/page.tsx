@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     .single();
 
   if (!profile) return { title: 'User Not Found' };
-  return { title: `${profile.username} — Test Kitchen OS` };
+  return { title: `${profile.username} | Test Kitchen OS` };
 }
 
 export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {

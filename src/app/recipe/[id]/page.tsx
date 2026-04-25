@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   if (!recipe) return { title: 'Recipe Not Found' };
   return {
-    title: `${recipe.name} — Test Kitchen OS`,
+    title: `${recipe.name} | Test Kitchen OS`,
     description: recipe.description,
   };
 }
